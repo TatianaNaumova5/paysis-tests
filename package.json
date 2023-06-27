@@ -18,5 +18,10 @@
     "@babel/preset-env": "7.22.5",
     "babel-plugin-module-resolver": "5.0.0",
     "jest": "29.5.0"
+  },
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": "babel-jest"
+    }
   }
 }
