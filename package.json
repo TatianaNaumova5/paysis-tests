@@ -1,8 +1,7 @@
 {
   "name": "paysis-tests",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "REST API automation tests for Paysis project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +9,14 @@
     "type": "git",
     "url": "git+https://github.com/TatianaNaumova5/paysis-tests.git"
   },
-
   "author": "Tatiana Valverde",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "@babel/preset-env": "7.22.5",
+    "babel-plugin-module-resolver": "5.0.0",
+    "jest": "29.5.0"
+  }
 }
