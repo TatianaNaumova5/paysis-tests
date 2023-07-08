@@ -1,8 +1,8 @@
 import {client} from 'common'
 
 describe('User', ()=>{
-  beforeall(async () =>{
-    const authResponse = await client.post('/auth', {
+  beforeAll(async () =>{
+    const response = await client.post('/auth', {
       login: process.env.LOGIN,
       password: process.env.PASSWORD,
     })
