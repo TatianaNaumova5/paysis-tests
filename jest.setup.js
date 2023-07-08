@@ -1,10 +1,7 @@
 import 'dotenv/config'
-import {anonymousClient} from './common'
+import {signIn} from 'helpers'
 
 module.exports = async () => {
-  const response = await anonymousClient.post('/auth', {
-    login: process.env.LOGIN,
-    password: process.env.PASSWORD,
-  })
+  const response = await signIn(process.env.LOGIN, process.env.PASSWORD)
   process.env['TOKEN'] = response.data.token
 }

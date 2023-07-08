@@ -1,11 +1,8 @@
-import {anonymousClient} from 'common'
+import {signIn} from 'helpers'
 
 describe('Authorization & Authentication', () => {
   test('Sign in with existing credentials', async () => {
-    const response = await anonymousClient().post('/auth', {
-      login: process.env.LOGIN,
-      password: process.env.PASSWORD,
-    })
+    const response = await signIn(process.env.LOGIN, process.env.PASSWORD)
 
     expect(response.status).toEqual(200)
     expect(response.data).toEqual({
@@ -14,8 +11,7 @@ describe('Authorization & Authentication', () => {
   })
 
   test('Sign in with not existing credentials', async () => {
-    const response = await anonymousClient().post('/auth', {
-      login: 'invalid', password: 'invalid'})
+    const response = await signIn('invalid', 'invalid')
 
     expect(response.status).toEqual(404)
     expect(response.data).toEqual({
