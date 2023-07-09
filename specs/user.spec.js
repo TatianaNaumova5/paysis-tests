@@ -1,4 +1,5 @@
 import {user} from 'helpers'
+import {request} from 'axios'
 
 describe('User', () => {
   test('Create user', async () => {
@@ -9,5 +10,11 @@ describe('User', () => {
       id: expect.any(String),
       amount: expect.any(Number),
     })
+
+    test('Get user by Id', async () => {
+      const getUseresponse = await user.get(`/users?id=${userId}`)
+    })
+    expect(getUseresponse.status).toEqual(200)
+    expect(getUseresponse.data.id).toEqual(userId)
   })
 })
