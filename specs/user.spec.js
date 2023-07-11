@@ -30,8 +30,19 @@ describe('User', () => {
     })
 
 
-    test('Get all users', () =>{
-      const getUsersResponse = user.get()
+    test('Get all users', async () =>{
+      const getUsersResponse =  await user.get()
+
+      expect(getUsersResponse.status).toEqual(200)
+      expect(Array.isArray(getUsersResponse.data)).toBe(true)
+      expect(getUsersResponse.data.length).toBeGreaterThanOrEqual(1)
+
+      for await (const user of getUsersResponse.data){
+        expect(user).toEqual({
+          id: expect.any(String),
+          amount:expect.any(Number),
+        })
+      }
     })
   })
 })
