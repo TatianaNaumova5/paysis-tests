@@ -10,11 +10,28 @@ describe('User', () => {
       id: expect.any(String),
       amount: expect.any(Number),
     })
+  })
 
-    test('Get user by Id', async () => {
-      const getUseresponse = await user.get(`/users?id=${userId}`)
+  describe('Get user', ()=> {
+    let createUserResponse
+
+    beforeAll(async ()=>{
+      createUserResponse = await user.create()
     })
-    expect(getUseresponse.status).toEqual(200)
-    expect(getUseresponse.data.id).toEqual(userId)
+
+    test('Get user by id', async () =>{
+       const getUserResponse = await user.get(createUserResponse.data.id)
+
+      expect(getUserResponse.status).toEqual(200)
+      expect(getUserResponse.data).toEqual({
+        id:createUserResponse.data.id,
+        amount:expect.any(Number),
+      })
+    })
+
+
+    test('Get all users', () =>{
+      const getUsersResponse = user.get()
+    })
   })
 })
