@@ -1,22 +1,21 @@
 import {user} from 'helpers'
-import {request} from 'axios'
 
 describe('User', () => {
   test('Create user', async () => {
-    const createUserResponse = await user.create()
+    const {data,status} = await user.create()
     
-    expect(createUserResponse.status).toEqual(200)
-    expect(createUserResponse.data).toEqual({
+    expect(status).toEqual(200)
+    expect(data).toEqual({
       id: expect.any(String),
       amount: expect.any(Number),
     })
   })
   
   describe('Get user', () => {
-    let createUserResponse
+    let userId
     
     beforeAll(async () => {
-      createUserResponse = await user.create()
+     const createUserResponse = await user.create()
       userId = createUserResponse.data.id
     })
     afterAll(async () => {
@@ -24,41 +23,48 @@ describe('User', () => {
     })
     
     test('Get user by id', async () => {
-      const getUserResponse = await user.get(createUserResponse.data.id)
+      const {data, status} = await user.get(userId)
       
-      expect(getUserResponse.status).toEqual(200)
-      expect(getUserResponse.data).toEqual({
-        id: createUserResponse.data.id,
+      expect(status).toEqual(200)
+      expect(data).toEqual({
+        id: userId,
         amount: expect.any(Number),
       })
     })
     
     
     test('Get all users', async () => {
-      const getUsersResponse = await user.get()
+      const {data, status} = await user.get()
       
-      expect(getUsersResponse.status).toEqual(200)
-      expect(Array.isArray(getUsersResponse.data)).toBe(true)
-      expect(getUsersResponse.data.length).toBeGreaterThanOrEqual(1)
+      expect(status).toEqual(200)
+      expect(Array.isArray(data)).toBe(true)
+      expect(data.length).toBeGreaterThanOrEqual(1)
       
-      for await (const user of getUsersResponse.data) {
+      for await (const user of data) {
         expect(user).toEqual({
           id: expect.any(String),
           amount: expect.any(Number),
         })
       }
     })
-    
-    describe('Delete user', () => {
+  })
+  
+  
+  describe('Delete user', () => {
+      let userId
+      
       beforeAll(async () => {
-        createUserResponse = await user.create()
+        const createUserResponse = await user.create()
         userId = createUserResponse.data.id
       })
-      test('Get user by id', async () => {
-        const deleteResponse = await user.delete(userId)
+      
+      test('Delete user by id', async () => {
+        const {data, status} = await user.delete(userId)
         
-        expect(status)
+        expect(status).toEqual(200)
+        expect(data).toEqual({
+          message: 'User deleted.',
+        })
       })
     })
   })
-})
