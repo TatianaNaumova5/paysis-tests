@@ -1,6 +1,7 @@
 import {user} from 'helpers'
 
 describe('User', () => {
+  
   test('Create user', async () => {
     const {data,status} = await user.create()
     
@@ -9,6 +10,8 @@ describe('User', () => {
       id: expect.any(String),
       amount: expect.any(Number),
     })
+    
+    await user.delete(data.id)
   })
   
   describe('Get user', () => {
@@ -51,20 +54,28 @@ describe('User', () => {
   
   
   describe('Delete user', () => {
-      let userId
+    test('Delete user by id', async () => {
+      const createUserResponse = await user.create()
       
-      beforeAll(async () => {
-        const createUserResponse = await user.create()
-        userId = createUserResponse.data.id
-      })
-      
-      test('Delete user by id', async () => {
-        const {data, status} = await user.delete(userId)
-        
-        expect(status).toEqual(200)
-        expect(data).toEqual({
+        const deleteUserResponse = await user.delete(createUserResponse.data.id)
+        expect(deleteUserResponse.status).toEqual(200)
+        expect(deleteUserResponse.data).toEqual({
           message: 'User deleted.',
         })
+        
+        const getUserResponse = await user.get(createUserResponse.data.id)
+        expect(getUserResponse.status).toEqual(400)
+        expect(getUserResponse.data).toEqual({
+          message: 'No user found.',
+        })
       })
+    
+    test('Delete not existing user', async () => {
+      const deleteUserResponse = await user.delete('invalid')
+      expect(deleteUserResponse.status).toEqual(400)
+      expect(deleteUserResponse.data).toEqual({
+        message: 'No user found.',
+      })
+    })
     })
   })

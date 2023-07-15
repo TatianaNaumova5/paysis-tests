@@ -2,6 +2,7 @@ import {user, transaction} from 'helpers'
 
 describe('Transaction', ()=>{
 	const amount = 100
+	
 	test('Create transaction', async ()=>{
 		const  userFrom = await user.create()
 		const  userTo = await user.create()

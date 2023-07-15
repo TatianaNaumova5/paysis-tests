@@ -1,6 +1,6 @@
 import {client} from 'common'
 
-export const create = async( from, to, amount) => {
+export const create = async(from, to, amount) => {
 	const config = {
 		method: 'post',
 		url: '/transactions',
