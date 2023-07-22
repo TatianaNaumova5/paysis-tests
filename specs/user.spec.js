@@ -1,8 +1,17 @@
 import {user} from 'helpers'
 
 describe('User', () => {
+  let userIds = []
+  
+  afterAll(async ()=> {
+    for await (const userId of userIds) {
+      await user.delete(userId)
+    }
+  })
+  
   test('Create user', async () => {
     const {data,status} = await user.create()
+    userIds.push(data.id)
     
     expect(status).toEqual(200)
     expect(data).toEqual({
@@ -19,9 +28,7 @@ describe('User', () => {
     beforeAll(async () => {
      const createUserResponse = await user.create()
       userId = createUserResponse.data.id
-    })
-    afterAll(async () => {
-      await user.delete(userId)
+      userIds.push(userId)
     })
     
     test('Get user by id', async () => {
