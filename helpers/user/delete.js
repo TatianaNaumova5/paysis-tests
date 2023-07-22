@@ -1,15 +1,15 @@
 import {client} from 'common'
 
-export const delete_= async (id) => {
+export const delete_ = async id => {
   const config = {
     method: 'delete',
-    url:'/users',
+    url: '/users',
     data: {
-      id: id
+      id: id,
     },
     headers: {
-      'Authorization': `Bearer ${process.env.TOKEN}`,
-    }
+      Authorization: `Bearer ${process.env.TOKEN}`,
+    },
   }
-  return  client.request(config)
+  return client.request(config)
 }
