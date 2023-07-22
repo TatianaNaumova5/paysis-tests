@@ -12,14 +12,25 @@ describe('Config', ()=>{
 	})
 	test('Delete config', async ()=>{
 		await config.patch(20, 500)
-		const userFromResponse = user.create()
-		const userToResponse = user.create()
+		const userFromResponse = await user.create()
+		const userToResponse = await user.create()
 		await transaction.create(userFromResponse.data.id, userToResponse.data.id, 100)
-		await config.delete()
 		
-		await configResponce = await user.get()
+		const configDeleteResponse =  await config.delete()
+		expect(configDeleteResponse.status).toEqual(200)
+		expect(configDeleteResponse.data).toEqual({
+		'message': 'Data wiped out.',
+		})
+		
+		const configGetResponce = await config.get()
+		expect(configGetResponce.data).toEqual(200)
+		expect(configGetResponce.data).toEqual({
+			'number_of_entries': 25,
+			'initial_amount': 1000
+		})
 	})
 })
+
 const failedUserResponse = await user.create()
 expect(failedUserResponse.status).toEqual(400)
 expect(failedUserResponse.data).toEqual({
