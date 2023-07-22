@@ -1,7 +1,6 @@
 import {user} from 'helpers'
 
 describe('User', () => {
-  
   test('Create user', async () => {
     const {data,status} = await user.create()
     

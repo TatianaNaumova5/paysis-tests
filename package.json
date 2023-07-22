@@ -34,6 +34,9 @@
     "moduleDirectories": [
       "node_modules",
       "<rootDir>"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/specs/example.spec.js"
     ]
   }
 }
