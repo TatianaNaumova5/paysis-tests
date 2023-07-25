@@ -5,7 +5,7 @@ export const delete_ = async id => {
     method: 'delete',
     url: '/users',
     data: {
-      id: id,
+      id
     },
     headers: {
       Authorization: `Bearer ${process.env.TOKEN}`,
