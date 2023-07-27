@@ -11,7 +11,7 @@ describe('Config', () => {
     })
   })
 
-  test.skip('Delete config', async () => {
+  test('Delete config', async () => {
     await config.patch(20, 500)
     const userFromResponse = await user.create()
     const userToResponse = await user.create()

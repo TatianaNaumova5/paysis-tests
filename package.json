@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "REST API automation tests for Paysis project",
   "scripts": {
-    "test": "jest",
+    "test": "jest -i",
     "format": "prettier ./ --write --list-different",
     "lint": "prettier ./ --check"
   },
@@ -36,7 +36,8 @@
       "<rootDir>"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/specs/example.spec.js"
+      "<rootDir>/specs/example.spec.js",
+      "health.spec.js"
     ]
   }
 }

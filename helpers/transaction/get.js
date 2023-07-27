@@ -3,7 +3,7 @@ import {client} from 'common'
 export const get = async (id = null) => {
   const config = {
     method: 'get',
-    url: '/transaction',
+    url: '/transactions',
     params: {
       id: id,
     },
